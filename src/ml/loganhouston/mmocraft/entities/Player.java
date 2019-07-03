@@ -4,6 +4,6 @@ import ml.loganhouston.mmocraft.dataclasses.Health;
 
 public class Player {
 
-    Health health = 10;
+    Health health = new Health();
 
 }

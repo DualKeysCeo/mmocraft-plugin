@@ -2,7 +2,7 @@ package ml.loganhouston.mmocraft.dataclasses;
 
 /**
 * Class for storing and modifying health easily
- * regeneration classes etc
+* regeneration classes etc
 *
 **/
 
@@ -25,12 +25,15 @@ public final class Health {
         this.health = health;
     }
 
+    public Health() {}
+
     public void regenerate(int health) {
         regenerate(health, this.regenInterval);
     }
 
+
     public void regenerate(int health, int regenInterval) {
-        while (health < maxHealth) {
+        while (this.health < maxHealth) {
             regenTimer += System.currentTimeMillis() - millis;
             millis = regenTimer + millis;
 
@@ -39,7 +42,7 @@ public final class Health {
                 regenTimer = 0;
             }
         }
-        if (health > maxHealth) health = maxHealth;
+        if (this.health > maxHealth) this.health = maxHealth;
     }
 
     public void damage(int damage) {
