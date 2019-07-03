@@ -1,30 +1,22 @@
-name: Farmer-Perk
+name: MMOCraft
 version: 1.0
-main: ml.loganhouston.Main
-api-version: 1.8.8
+main: ml.loganhouston.mmocraft.Main
+api-version: 1.10.2
 authors:
   - Logan Houston
   - Levin202
-prefix: Farmer Perk
+prefix: MMOCraft
 commands:
-  bean:
-    permission: farmer.bean
-    description: Beans
-    usage: There is no help for you, only beans
-  peel:
-    permission: farmer.heal
-    permission-message: You need the farmer.heal permission to use this command
-    description: YOU FOUND THE SECRET COMMAND
-    usage: "Usage: /<command>"
+  mmo:
+    permission: mmo.admin
+    description: Main mmo command, for customization
+    usage: /mmo help
+    aliases: mmocraft
 permissions:
-  farmer.bean:
-    description: Allows use of bean command
+  mmo.admin:
+    description: Allows use of /mmo command
     default: op
-  farmer.heal:
-    description: Allows use of peel command
-    default: op
-  farmer.*:
+  mmo.*:
     default: op
     children:
-      farmer.bean: true
-      farmer.heal: true
+      mmo.admin: true
