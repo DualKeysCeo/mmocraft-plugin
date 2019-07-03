@@ -27,6 +27,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+/**
+ * Main plugin thing
+ */
+
 public class Main extends JavaPlugin implements Listener {
 
     public static JavaPlugin MMOcraft;
@@ -34,22 +38,22 @@ public class Main extends JavaPlugin implements Listener {
 	// HealthBar Crap
 	public static 	Main plugin;
 	public static	Logger logger1;
-	
+
 	private static	DamageListener damageListener;
 	private static	DeathListeners deathListener;
 	private static 	MiscListeners miscListeners;
 	// End of HealthBar Crap
     @Override
     public void onEnable() {
-    		
+
     		plugin = this;
     		logger = getLogger();
-    		
-    		
+
+
     		try {
     			String build = Utils.getBukkitBuild();
     			if (build != null) {
-    				if (Integer.parseInt(build) < 2811) {	
+    				if (Integer.parseInt(build) < 2811) {
     					logger.warning("------------------------------------------");
     					logger.warning("Your Spigot build (#" + build + ") is old.");
     					logger.warning("HealthBar cannot work properly,");
@@ -60,57 +64,57 @@ public class Main extends JavaPlugin implements Listener {
     				}
     			}
     		} catch (Exception ignore) {}
-    		
-    		
+
+
     		damageListener = new DamageListener();
     		deathListener = new DeathListeners();
     		miscListeners = new MiscListeners();
-    		
+
     		//to check if I've forgot the debug on :)
-    		Debug.color("§c[HealthBar] Debug ON");		
-    		
+    		Debug.color("ï¿½c[HealthBar] Debug ON");
+
     		//create the folder and the file
     		if (getDataFolder().exists()) {
     			getDataFolder().mkdir();
     		}
     		Utils.loadFile("config.yml", this);
-    			
+
     		//register events
     		getServer().getPluginManager().registerEvents(damageListener, this);
     		getServer().getPluginManager().registerEvents(deathListener, this);
     		getServer().getPluginManager().registerEvents(miscListeners, this);
-    		
+
     		//other files
     		reloadConfigFromDisk();
     		FileConfiguration config = getConfig();
-    		
-    		
+
+
     		//try to check updates
-    		Updater.UpdaterHandler.setup(this, 54447, "§2[§aHealthBar§2] ", super.getFile(), ChatColor.GREEN, "/hbr update", "health-bar");
-    		
+    		Updater.UpdaterHandler.setup(this, 54447, "ï¿½2[ï¿½aHealthBarï¿½2] ", super.getFile(), ChatColor.GREEN, "/hbr update", "health-bar");
+
     		if (config.getBoolean("update-notification")) {
     			Thread updaterThread = new Thread(new Runnable() { public void run() {
     				Updater.UpdaterHandler.startupUpdateCheck();
     			}});
-    			
+
     			updaterThread.start();
     		}
-    		
-    			
+
+
     		//setup for command executor
     		getCommand("healthbar").setExecutor(new HealthBarCommands(this));
-    			
+
     		//metrics
     		try {
     			MetricsLite metrics = new MetricsLite(this);
     			metrics.start();
     		} catch (Exception e) {}
-    			
-    			
+
+
     //end of onEnable for HealthBar Crap
-    	}	
-    	
-    	
+    	}
+
+
         logger.info("Plugin developed by Logan Houston and Levin202");
         logger.info("Initializing classes");
         void registerEvents(
@@ -127,7 +131,7 @@ public class Main extends JavaPlugin implements Listener {
     public void onDisable() {
         logger.warning("Shutting down...");
         MMOcraft = null; // prevents memory leaks
-        
+
         //HealthBar Crap
         PlayerBarUtils.removeAllHealthbarTeams(Bukkit.getScoreboardManager().getMainScoreboard());
 		PlayerBar.removeBelowObj();
@@ -153,19 +157,19 @@ public class Main extends JavaPlugin implements Listener {
     public Logger getLog() { return logger; }
 
 	public void reloadConfigFromDisk() {
-	
+
 		reloadConfig();
 		//Utils.checkDefaultNodes(getConfig(), this);
 		HealthBarConfig.checkConfigYML();
-	
+
 		Utils.loadFile("custom-mob-bar.yml", this);
 		Utils.loadFile("custom-player-bar.yml", this);
 		Utils.loadFile("locale.yml", this);
 		Utils.loadFile("config.yml", this);
-	
+
 		//forces to generate translations, if missing
 		Utils.getTranslationMap(this);
-	
+
 		DamageListener.loadConfiguration();
 		DeathListeners.loadConfiguration();
 		PlayerBar.loadConfiguration();
@@ -174,11 +178,10 @@ public class Main extends JavaPlugin implements Listener {
 	public static MiscListeners getLoginListenerInstance() {
 		return miscListeners;
 	}
-	
+
 	public static File getPluginFile() {
 		return plugin.getFile();
 	}
 
 //end of the HealthBar Crap in Main
 }
-	
