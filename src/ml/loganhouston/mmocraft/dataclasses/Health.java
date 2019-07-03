@@ -15,13 +15,14 @@ public final class Health {
     private long millis;
 
     public Health(int health, int maxHealth) {
-        if (health > maxHealth) health = maxHealth;
+        ifOverSetMax();
         this.health = health;
         this.maxHealth = maxHealth;
         millis = System.currentTimeMillis();
     }
 
     public Health(int health) {
+        ifOverSetMax();
         this.health = health;
     }
 
