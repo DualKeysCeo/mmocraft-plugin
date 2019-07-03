@@ -40,7 +40,6 @@ public final class Health {
             }
         }
         if (health > maxHealth) health = maxHealth;
-
     }
 
     public void damage(int damage) {
