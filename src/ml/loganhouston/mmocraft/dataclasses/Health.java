@@ -46,7 +46,20 @@ public final class Health {
     }
 
     public void damage(int damage) {
-        health -= damage;
+        this.health -= damage;
     }
+
+    public void heal(int health) {
+        this.health += health;
+    }
+
+    public void addMaxHealth(int health) {
+        this.maxHealth += health;
+    }
+
+    public void damageMaxHealth(int damage) {
+        this.maxHealth -= damage;
+    }
+
 
 }
