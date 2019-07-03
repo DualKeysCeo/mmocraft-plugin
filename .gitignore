@@ -1,5 +1,7 @@
 .idea/*
 dist/production/*
+out/*
+
 *.jar
 *.iml
 .classpath
