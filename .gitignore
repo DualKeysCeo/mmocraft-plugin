@@ -1,0 +1,6 @@
+.idea/*
+dist/production/*
+*.jar
+*.iml
+.classpath
+.project
