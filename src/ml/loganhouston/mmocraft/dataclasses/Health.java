@@ -27,6 +27,15 @@ public final class Health {
 
     public Health() {}
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (getClass() == o.getClass()) return true;
+        int comparisonO = (int) o;
+        if (comparisonO == this.health) return true;
+        return false;
+    }
+
     public void regenerate(int health) {
         regenerate(health, this.regenInterval);
     }
@@ -42,7 +51,7 @@ public final class Health {
                 regenTimer = 0;
             }
         }
-        if (this.health > maxHealth) this.health = maxHealth;
+        ifOverSetMax();
     }
 
     public void damage(int damage) {
@@ -51,6 +60,7 @@ public final class Health {
 
     public void heal(int health) {
         this.health += health;
+        ifOverSetMax();
     }
 
     public void addMaxHealth(int health) {
@@ -59,6 +69,11 @@ public final class Health {
 
     public void damageMaxHealth(int damage) {
         this.maxHealth -= damage;
+        ifOverSetMax();
+    }
+
+    private void ifOverSetMax() {
+        if (this.health > this.maxHealth) this.health = this.maxHealth;
     }
 
 
