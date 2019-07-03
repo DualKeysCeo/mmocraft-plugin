@@ -6,10 +6,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.management.openmbean.ArrayType;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.logging.Logger;
+
+/**
+ * Main plugin thing
+ */
 
 public class Main extends JavaPlugin implements Listener {
 

@@ -9,6 +9,10 @@ import org.bukkit.event.Listener;
 
 import java.util.logging.Logger;
 
+/**
+ * Command listener
+ */
+
 public class MMOCommand implements Listener, CommandExecutor {
 
     @Override

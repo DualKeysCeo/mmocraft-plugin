@@ -2,8 +2,7 @@ package ml.loganhouston.mmocraft.dataclasses;
 
 /**
 * Class for storing and modifying health easily
-* regeneration classes etc
-*
+* regeneration functions etc
 **/
 
 public final class Health {
@@ -14,22 +13,23 @@ public final class Health {
                 regenTimer = 0;
     private long millis;
 
-    public Health(int health, int maxHealth) {
-        ifOverSetMax();
-        this.health = health;
-        this.maxHealth = maxHealth;
+    public Health() { // defaults to 100 health and 100 max health
         millis = System.currentTimeMillis();
     }
 
-    public Health(int health) {
-        ifOverSetMax();
+    public Health(int health) { // custom health value (lower than max)
         this.health = health;
+        millis = System.currentTimeMillis();
     }
 
-    public Health() {}
+    public Health(int health, int maxHealth) { // custom health and max health values
+        this(health);
+        this.maxHealth = maxHealth;
+        ifOverSetMax();
+    }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) { // e.g. if (health.equals(0)
         if (o == null) return false;
         if (getClass() == o.getClass()) return true;
         int comparisonO = (int) o;
@@ -37,12 +37,11 @@ public final class Health {
         return false;
     }
 
-    public void regenerate(int health) {
+    public void regenerate(int health) { // regenerate at health per second
         regenerate(health, this.regenInterval);
     }
 
-
-    public void regenerate(int health, int regenInterval) {
+    public void regenerate(int health, int regenInterval) { // regenerate at health per regenInterval ms
         while (this.health < maxHealth) {
             regenTimer += System.currentTimeMillis() - millis;
             millis = regenTimer + millis;
@@ -55,25 +54,25 @@ public final class Health {
         ifOverSetMax();
     }
 
-    public void damage(int damage) {
+    public void damage(int damage) { // take health
         this.health -= damage;
     }
 
-    public void heal(int health) {
+    public void heal(int health) { // recover health
         this.health += health;
         ifOverSetMax();
     }
 
-    public void addMaxHealth(int health) {
+    public void addMaxHealth(int health) { // upgrade max health
         this.maxHealth += health;
     }
 
-    public void damageMaxHealth(int damage) {
+    public void damageMaxHealth(int damage) { // downgrade max health
         this.maxHealth -= damage;
         ifOverSetMax();
     }
 
-    private void ifOverSetMax() {
+    private void ifOverSetMax() { // self-explanatory
         if (this.health > this.maxHealth) this.health = this.maxHealth;
     }
 
